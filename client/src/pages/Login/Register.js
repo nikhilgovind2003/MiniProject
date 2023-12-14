@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function SignUp() {
     // const [users, setUsers] = useState([])
@@ -18,7 +18,6 @@ function SignUp() {
         axios
         .get('http://localhost:4000/register')
         .then((res) => {
-            // console.log(res.data)
         })
     }
 
@@ -79,6 +78,11 @@ function SignUp() {
                 {/* Button */}
                 <button className='w-[200px] h-[50px] border hover:bg-teal-900'
                 type='submit'>Sign Up</button>
+                <div className=" mt-4 text-gray-400">
+            <p>
+              Already an account? <Link className=" underline text-blue-300" to="/login">Login</Link>
+            </p>
+          </div>
             </form>
         </div>
         <div className='w-[50%] h-[100%] flex justify-center items-center bg-teal-800'>
