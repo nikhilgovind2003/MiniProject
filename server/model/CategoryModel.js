@@ -14,6 +14,4 @@ icon:{
 });
 
 
-const category = mongoose.model('Product', categorySchema);
-
-module.exports = category
+module.exports = mongoose.model('category', categorySchema);

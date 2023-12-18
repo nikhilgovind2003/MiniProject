@@ -17,15 +17,15 @@ app.options('*', cors())
 
 app.use(bodyparser.json())
 const api = process.env.API
-app.use(morgan('tiny'))
+// app.use(morgan('tiny'))
+
 
 
 // ROUTES
-app.use("${api}/products", ProductRoutes)
-app.use("${api}/", UserRoutes)
-app.use("${api}/order", OrderRoutes)
-app.use("${api}/category", CategoryRoutes)
-
+app.use(`${api}/products`, ProductRoutes)
+app.use(`${api}/`, UserRoutes)
+// app.use("${api}/order", OrderRoutes)
+app.use(`${api}/category`, CategoryRoutes)
 
 mongoose
   .connect(

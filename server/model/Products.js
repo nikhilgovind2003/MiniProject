@@ -13,17 +13,17 @@ const productSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
-  images: [{
-    type: String,
-    default: '',
-  }],
+  // images: [{
+  //   type: String,
+  //   default: '',
+  // }],
   price: {
     type: Number,
     default: 0,
   },
   category: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "CaregoryModel",
+    ref: "category",
     required: true,
   },
   countInStock: {
@@ -38,16 +38,16 @@ const productSchema = new mongoose.Schema({
   },
   numReviews: {
     type: Number,
-    default: 0,
-  },
-  isFeatured: {
-    type: Boolean,
-    default: false,
-  },
-  dateCreated:{
-    type: Date,
-    default: Date.now() 
+    default: 0
   }
+  // isFeatured: {
+  //   type: Boolean,
+  //   default: false,
+  // },
+  // dateCreated:{
+  //   type: Date,
+  //   default: Date.now() 
+  // }
 
 });
 
