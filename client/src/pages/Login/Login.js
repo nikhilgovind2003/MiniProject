@@ -1,35 +1,24 @@
-import React, { useState, useEffect } from "react";
+// Login.js
+import React, { useState, createContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-function Login() {
-  const [users, setUsers] = useState([]);
-  const [username, setUsername] = useState("");
+function Login({onDataChange}) {
+
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
-  const fetchUsers = async () => {
-    try {
-      const res = await axios.post("http://localhost:4000/register");
-      console.log(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:4000/login", {
+      const response = await axios.post("http://localhost:4000/api/v1/login", {
         username,
         password,
       });
       alert("Login successful");
-      navigate("/home");
+      onDataChange(username)
+      navigate("/");
     } catch (error) {
       console.log("Login Error", error);
     }
@@ -50,7 +39,7 @@ function Login() {
             type="text"
             placeholder="Username"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e)=>setUsername(e.target.value)}
           />
           <br />
           <br />
@@ -75,7 +64,10 @@ function Login() {
           </button>
           <div className=" my-4">
             <p>
-              Don't have account? <Link className=" text-teal-500 underline" to="/signup">Sign up</Link>
+              Don't have an account?{" "}
+              <Link className=" text-teal-500 underline" to="/signup">
+                Sign up
+              </Link>
             </p>
           </div>
         </form>

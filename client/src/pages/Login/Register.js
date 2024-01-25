@@ -16,17 +16,20 @@ function SignUp() {
 
     const fetchUsers = () => {
         axios
-        .get('http://localhost:4000/register')
+        .get('http://localhost:4000/api/v1/register')
         .then((res) => {
         })
     }
 
 
     const handleSubmit = (event) => {
+        debugger
+        console.log('entered handler block')
         event.preventDefault();
         axios
-        .post('http://localhost:4000/register', { email, username, password })
-        .then(() => {
+        .post('http://localhost:4000/api/v1/register', { email, username, password })
+        .then((res) => {
+            console.log(JSON.stringify(res,null,2))
             alert('Registration Successful')
             setEmail('')
             setUsername('')
@@ -44,7 +47,8 @@ function SignUp() {
     <div className='w-full h-screen flex'>
         <div className='w-[50%] h-[100%] bg-[#1a1a1a] text-white flex justify-center items-center'>
             <form className='text-center border rounded-lg w-[600px] h-[400px] p-9'
-            onSubmit={handleSubmit}>
+            onSubmit={handleSubmit}
+            >
                 {/* Email Input */}
                 <label>Email</label>
                 <br />
@@ -86,7 +90,7 @@ function SignUp() {
             </form>
         </div>
         <div className='w-[50%] h-[100%] flex justify-center items-center bg-teal-800'>
-            <h2 className='text-3xl text-white'>Sign Up</h2>
+            <button className='text-3xl text-white'>Sign Up</button>
         </div>
     </div>
   )
