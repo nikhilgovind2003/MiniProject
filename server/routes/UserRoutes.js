@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userModel = require("../model/userModel")
 const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 
 const SECRET_KEY = "super-secret-key";
 
@@ -47,11 +48,12 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
-      expiresIn: "infinite",
+      expiresIn: "2h",
     });
-    res.json({ message: "Login successful" });
+    res.json({ message: "Login successful", token });
+     // Include the token in the response
   } catch (error) {
-    res.status(500).json({ error: "Error logging in" });
+    res.status(500).json({ error: "Error logging in" + error.message });
   }
 });
 

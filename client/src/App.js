@@ -8,20 +8,29 @@ import { ShopContextProvider } from "./context/shop-context";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Login/Register";
 
+import { useState } from "react";
+
 function App() {
+  const [data, setData] = useState();
+  const handleDataChange = newData => {
+    setData(newData);
+  };
+ 
   return (
     <div className="App">
       <ShopContextProvider>
+        
         <Router>
-          <Navbar />
+          <Navbar data={data}/>
           <Routes>
             <Route path="/" element={<Shop />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login onDataChange={handleDataChange}/>} />
           </Routes>
         </Router>
+        
       </ShopContextProvider>
     </div>
   );
