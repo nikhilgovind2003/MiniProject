@@ -4,8 +4,8 @@ import { ShoppingCart, User } from "phosphor-react";
 import "./navbar.css";
 
 
-export const Navbar = (data) => {
-  console.log(data)
+export const Navbar = (data,{clearData}) => {
+  
 
   return (
     <div className="navbar">
@@ -13,7 +13,7 @@ export const Navbar = (data) => {
         <Link to="/"> Shop </Link>
         <Link to="/contact"> Contact </Link>
        {data.data? <Link to="/login" >Welcome {data.data} </Link>:<Link to="/login" >Login</Link>}
-       {data.data?<h2>Logout </h2>:''}
+       {data.data?<button onClick={clearData}>Logout </button>:''}
         <Link to="/cart">
           <ShoppingCart size={32} />
         </Link>

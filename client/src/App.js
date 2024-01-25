@@ -15,19 +15,23 @@ function App() {
   const handleDataChange = newData => {
     setData(newData);
   };
+  const clearData = () => {
+    setData({});
+    console.log('gt')
+  };
  
   return (
     <div className="App">
       <ShopContextProvider>
         
         <Router>
-          <Navbar data={data}/>
+          <Navbar data={data} clearData={clearData}/>
           <Routes>
             <Route path="/" element={<Shop />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login onDataChange={handleDataChange}/>} />
+            <Route path="/login" element={<Login onDataChange={handleDataChange} />} />
           </Routes>
         </Router>
         
