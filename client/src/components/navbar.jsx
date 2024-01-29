@@ -1,19 +1,30 @@
-import React,{useContext} from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart, User } from "phosphor-react";
+import { ShoppingCart } from "phosphor-react";
 import "./navbar.css";
+import { useUser } from "../context/usercontext";
+
+export const Navbar = () => {
+  const { user, updateUser } = useUser();
+  const style = {
+    'color': 'white',
+    'margin-left': '20px',
+    'font-size': '20px',
+  };
 
 
-export const Navbar = (data,{clearData}) => {
-  
-
+  function cleardata() {
+    // Clear user data in localStorage and update the state
+    localStorage.clear();
+    updateUser(null);
+  }
   return (
     <div className="navbar">
       <div className="links">
         <Link to="/"> Shop </Link>
         <Link to="/contact"> Contact </Link>
-       {data.data? <Link to="/login" >Welcome {data.data} </Link>:<Link to="/login" >Login</Link>}
-       {data.data?<button onClick={clearData}>Logout </button>:''}
+       {localStorage.getItem('user')!=null ? <div style={style}>Welcome {localStorage.getItem('user')} </div> : <div><Link to='/login' style={style}>Login</Link></div>}
+       {localStorage.getItem('user')!=null ? <button style={style} onClick={cleardata}>Logout </button>:''}
         <Link to="/cart">
           <ShoppingCart size={32} />
         </Link>
