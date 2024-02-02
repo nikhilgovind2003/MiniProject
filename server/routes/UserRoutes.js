@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userModel = require("../model/userModel")
+const userModel = require("../model/userModel");
 const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = "super-secret-key";
 
@@ -10,7 +10,7 @@ router.post("/register", async (req, res) => {
   try {
     // const {username, email, password} = req.body;
 
-    const {username, email, password} = req.body;
+    const { username, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new userModel({
       email,
@@ -50,11 +50,12 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, SECRET_KEY, {
       expiresIn: "2h",
     });
+    await userModel.findByIdAndUpdate(user._id, { tokens: [{ token: token , signedAt: Date.now().toString()}] });
     res.json({ message: "Login successful", token });
-     // Include the token in the response
+    // Include the token in the response
   } catch (error) {
     res.status(500).json({ error: "Error logging in" + error.message });
   }
 });
 
-module.exports = router
+module.exports = router;
