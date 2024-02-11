@@ -41,6 +41,23 @@ export const Shop = () => {
     }
   }, [products, currentPage]);
 
+  useEffect(() => {
+    if (localStorage.getItem('user')) {
+      // Fetch collaborative filtering recommendations
+      const userId = localStorage.getItem('user');
+      axios.get(`http://localhost:5000/collaborativeFiltering/${userId}`)
+        .then((response) => {
+          const collaborativeFilteringRecommendations = response.data.recommendations || [];
+          // Combine collaborative filtering recommendations with other logic if needed
+          const combinedRecommendations = [...recommendedProducts, ...collaborativeFilteringRecommendations];
+          setRecommendedProducts(combinedRecommendations);
+        })
+        .catch((error) => {
+          console.error("Error fetching collaborative filtering recommendations:", error);
+        });
+    }
+  }, [products, currentPage]);
+
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const handlePageChange = (newPage) => {
@@ -95,6 +112,16 @@ export const Shop = () => {
         
       )
       }
+      {localStorage.getItem('user') && (
+        <div className="recommendation">
+          <div className="products">
+            {recommendedProducts.map((productId) => {
+              const recommendedProduct = products.find(product => product.id === productId);
+              return recommendedProduct && <Product key={recommendedProduct.id} data={recommendedProduct} />;
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

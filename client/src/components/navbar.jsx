@@ -15,6 +15,7 @@ export const Navbar = () => {
 
   function cleardata() {
     // Clear user data in localStorage and update the state
+    alert('Logout successful')
     localStorage.clear();
     updateUser(null);
   }
