@@ -2,13 +2,13 @@
 import React, { useState, createContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-
-function Login({onDataChange}) {
+import { useUser } from "../../context/usercontext";
+function Login() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const { updateUser } = useUser();
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -17,13 +17,15 @@ function Login({onDataChange}) {
         password,
       });
       alert("Login successful");
-      onDataChange(username)
+      localStorage.setItem("user", username);
+      updateUser(username); // Update the user in context
       navigate("/");
     } catch (error) {
       console.log("Login Error", error);
     }
   };
 
+  
   return (
     <div className="w-full h-screen flex">
       <div className="w-[50%] h-[100%] bg-[#1a1a1a] text-white flex justify-center items-center">

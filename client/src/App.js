@@ -7,34 +7,27 @@ import { Cart } from "./pages/cart/cart";
 import { ShopContextProvider } from "./context/shop-context";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/Login/Register";
-
-import { useState } from "react";
+import { UserProvider } from "./context/usercontext";
 
 function App() {
-  const [data, setData] = useState();
-  const handleDataChange = newData => {
-    setData(newData);
-  };
-  const clearData = () => {
-    setData({});
-    console.log('gt')
-  };
  
+
   return (
     <div className="App">
       <ShopContextProvider>
-        
+        <UserProvider>
         <Router>
-          <Navbar data={data} clearData={clearData}/>
+          <Navbar />
+          
           <Routes>
             <Route path="/" element={<Shop />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login onDataChange={handleDataChange} />} />
+            <Route path="/login" element={<Login/>} />
           </Routes>
         </Router>
-        
+        </UserProvider>
       </ShopContextProvider>
     </div>
   );
