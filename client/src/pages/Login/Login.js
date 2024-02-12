@@ -40,7 +40,7 @@ function Login() {
             className="w-[400px] h-[40px] rounded-xl bg-zinc-700 p-2"
             type="text"
             placeholder="Username"
-            value={username}
+            value={username} 
             onChange={(e)=>setUsername(e.target.value)}
           />
           <br />

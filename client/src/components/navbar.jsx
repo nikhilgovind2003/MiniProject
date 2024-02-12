@@ -24,8 +24,12 @@ export const Navbar = () => {
       <div className="links">
         <Link to="/"> Shop </Link>
         <Link to="/contact"> Contact </Link>
+ main
        {localStorage.getItem('user')!=null ? <div style={style}>Welcome {localStorage.getItem('user')} </div> : <div><Link to='/login' style={style}>Login</Link></div>}
        {localStorage.getItem('user')!=null ? <button style={style} onClick={cleardata}>Logout </button>:''}
+       {data.data? <Link to="/" >Welcome {data.data} </Link>:<Link to="/login" >Login</Link>}
+       {data.data?<Link to="" className="logout" onClick={clearData}>Logout </Link>:''}
+main
         <Link to="/cart">
           <ShoppingCart size={32} />
         </Link>
